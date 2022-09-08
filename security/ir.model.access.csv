@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_leap_property_agent,leap.property,model_leap_property,leap.leap_group_user,1,1,1,0
+access_leap_property_type_agent,leap.property.type,model_leap_property_type,leap.leap_group_user,1,0,0,0
+access_leap_property_tag_agent,leap.property.tag,model_leap_property_tag,leap.leap_group_user,1,0,0,0
+access_leap_property_offer_agent,leap.property.offer,model_leap_property_offer,leap.leap_group_user,1,1,1,0
+
+access_leap_property_manager,leap.property,model_leap_property,leap.leap_group_manager,1,1,1,1
+access_leap_property_type_manager,leap.property.type,model_leap_property_type,leap.leap_group_manager,1,1,1,1
+access_leap_property_tag_manager,leap.property.tag,model_leap_property_tag,leap.leap_group_manager,1,1,1,1
+access_leap_property_offer_manager,leap.property.offer,model_leap_property_offer,leap.leap_group_manager,1,1,1,1
+

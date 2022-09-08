@@ -1,0 +1,10 @@
+<odoo>
+    <report
+        id="report_property_offers"
+        string="Print report"
+        model="leap.property"
+        report_type ="qweb-pdf"
+        name="leap.report_property_offers"
+        file="leap.report_property_offers"
+    />
+</odoo>

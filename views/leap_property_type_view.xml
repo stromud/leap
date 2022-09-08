@@ -1,0 +1,50 @@
+<odoo>
+    <data>
+        <record id="leap_property_type_view_action" model="ir.actions.act_window">
+            <field name="name">Property type</field>
+            <field name="res_model">leap.property.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="leap_property_type_tree_view" model="ir.ui.view">
+            <field name="name">leap.property.type.tree.view</field>
+            <field name="model">leap.property.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="offer_count"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="leap_property_type_form_view" model="ir.ui.view">
+            <field name="name">leap.property.type.form.view</field>
+            <field name="model">leap.property.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button type="action" class="oe_stat_button" icon="fa-money" name="%(leap.leap_property_offer_view_action)d">
+                                Offers
+                                <field name="offer_count" widget="stat_info"/>
+                            </button>
+                        </div>
+                        <h1><field name="name"/></h1>
+                        <notebook>
+                            <page string="Properties">
+                                <field name="property_ids">
+                                    <tree>
+                                        <field name="name" string="Title"/>
+                                        <field name="expected_price"/>
+                                        <field name="state" string="Status"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record> 
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <menuitem id="leap_property_view_menu" name="Leap">
+            <menuitem id="leap_property_first_level_menu" name="Advertisment">
+                <menuitem id="leap_property_menu_action" action="leap_property_view_action"/>
+            </menuitem>
+            <menuitem id="leap_property_second_level_menu" name="Settings">
+                <menuitem id="leap_property_type_menu_action" action="leap_property_type_view_action"/>
+                <menuitem id="leap_property_tag_menu_action" action="leap_property_tag_view_action"/>
+            </menuitem>
+        </menuitem>
+    </data>
+</odoo>

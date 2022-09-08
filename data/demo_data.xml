@@ -1,0 +1,99 @@
+<odoo>
+    <data noupdate="1">
+        <record id="leap_property_demo_date_view" model="leap.property">
+            <field name="name">big villa</field>
+            <field name="property_type_id" ref="leap.property_type_record_1"/>
+            <field name="state">new</field>
+            <field name="description">a nice and big villa</field>
+            <field name="postcode">12345</field>
+            <field name="date_availability">2020-02-02</field>
+            <field name="expected_price">1600000</field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">100</field>
+            <field name="facedes">4</field>
+            <field name="garage">True</field>
+            <field name="garden">True</field>
+            <field name="garden_area">100000</field>
+            <field name="garden_orientation">s</field>
+        </record>
+
+         <record id="leap_property_demo_date_view_1" model="leap.property">
+            <field name="name">trailer home</field>
+            <field name="property_type_id" ref="leap.property_type_record_1"/>
+            <field name="state">canceled</field>
+            <field name="description">home in a trailler park</field>
+            <field name="postcode">54321</field>
+            <field name="date_availability">1970-01-01</field>
+            <field name="expected_price">100000</field>
+            <field name="selling_price">120000</field>
+            <field name="bedrooms">1</field>
+            <field name="living_area">10</field>
+            <field name="facedes">4</field>
+            <field name="garage">False</field>
+        </record>
+
+        <record id="leap_property_demo_date_on2many_view" model="leap.property">
+            <field name="name">Appartamento</field>
+            <field name="property_type_id" ref="leap.property_type_record_1"/>
+            <field name="state">new</field>
+            <field name="description">a nice and Appartamento</field>
+            <field name="postcode">74121</field>
+            <field name="date_availability">2022-05-02</field>
+            <field name="expected_price">18000000</field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">100</field>
+            <field name="facedes">4</field>
+            <field name="garage">True</field>
+            <field name="garden">True</field>
+            <field name="garden_area">1000</field>
+            <field name="garden_orientation">n</field>
+            <field name="offer_ids" eval="[(0,0,{
+                'validity': 15,
+                'price': 1800000.00,
+                'partner_id': ref('base.res_partner_address_15')
+            }),(0,0,{
+                'validity': 13,
+                'price': 2000000.00,
+                'partner_id': ref('base.res_partner_address_15')
+            })
+            ]"/>
+        </record>
+
+
+        <record id="leap_property_offer_demo_data_1" model="leap.property.offer">
+            <field name="partner_id" ref="base.res_partner_address_15"/>
+            <field name="property_id" ref="leap.leap_property_demo_date_view"/>
+            <field name="validity">14</field>
+            <field name="price">10000.00</field>
+        </record>
+
+
+        <record id="leap_property_offer_demo_data_2" model="leap.property.offer">
+            <field name="partner_id" ref="base.res_partner_address_15"/>
+            <field name="property_id" ref="leap.leap_property_demo_date_view"/>
+            <field name="validity">14</field>
+            <field name="price">1500000.00</field>
+        </record>
+
+
+        <record id="leap_property_offer_demo_data_3" model="leap.property.offer">
+            <field name="partner_id" ref="base.res_partner_address_15"/>
+            <field name="property_id" ref="leap.leap_property_demo_date_view"/>
+            <field name="validity">14</field>
+            <field name="price">1500001.00</field>
+        </record>
+
+        <function model="leap.property.offer" name="accepted_action">
+            <value eval="[ref('leap.leap_property_offer_demo_data_3')]"/>
+        </function>
+
+        <function model="leap.property.offer" name="refused_action">
+            <value eval="[ref('leap_property_offer_demo_data_1')]"/>
+        </function>
+
+        <function model="leap.property.offer" name="refused_action">
+            <value eval="[ref('leap_property_offer_demo_data_2')]"/>
+        </function>
+    </data>
+</odoo>
+#control 

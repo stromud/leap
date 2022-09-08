@@ -1,0 +1,136 @@
+<odoo>
+    <data>
+        <record id="leap_property_view_tree" model="ir.ui.view">
+            <field name="name">leap.property.view.tree</field>
+            <field name="model">leap.property</field>
+            <field name="arch" type="xml">
+                <tree string="Properties" decoration-success="state in ['accepted']" decoration-bf="state in ['received','accepted']" decoration-muted="state in ['sold']">
+                    <field name="name"/>
+                    <field name="property_tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                    <field name="postcode"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area"/>
+                    <field name="expected_price"/>
+                    <field name="selling_price"/>
+                    <field name="date_availability" optional="hide"/>
+                    <field name="state" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="leap_property_form_view" model="ir.ui.view">
+            <field name="name">leap.property.form.view</field>
+            <field name="model">leap.property</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="sold_action" type="object" string="Sold" attrs="{'invisible': [('state' ,'in', ['sold','canceled'])]}"/>
+                        <button name="cancel_action" type="object" string="Cancel" attrs="{'invisible': [('state' ,'in', ['canceled','sold'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,received,accepted,sold"/>
+                    </header>
+                    <sheet>
+                    <h1><field name="name"/></h1>
+                    <field name="property_tag_ids" widget="many2many_tags" options="{'color_field':'color'}"/>
+                        <group>
+                            <group>
+                                <field name="property_type_id" options="{'no_create': 'True','no_edit':'True'}"/>
+                                <field name="postcode"/>
+                                <field name="date_availability"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="best_price"/>
+                                <field name="selling_price"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                    <field name="description" string="description"/>
+                                    <field name="bedrooms" string="bedrooms"/>
+                                    <field name="living_area" string="living_area"/>
+                                    <field name="facedes" string="facedes"/>
+                                    <field name="garage" string="garage"/>
+                                    <field name="garden" string="garden"/>
+                                    <field name="garden_area" string="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="garden_orientation" string="garden_orientation" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                    <field name="active" string="active"/>
+                                    <field name="total_area"/>
+                                </group>
+                            </page>
+                            <page string="info offer">
+                                <group>
+                                    <field name="user_id"/>
+                                    <field name="partner_id"/>
+                                </group>
+                            </page>
+                            <page string="offer">
+                                <group>
+                                    <field name="offer_ids" attrs="{'readonly': [('state', 'in',['accepted','sold','canceled'])]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="leap_property_search_view" model="ir.ui.view">
+            <field name="name">leap.property.search.view</field>
+            <field name="model">leap.property</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="postcode"/>
+                    <field name="expected_price"/>
+                    <field name="bedrooms"/>
+                    <field name="living_area" filter_domain="[('living_area', '>=', self)]"/>
+                    <field name="facedes"/>
+                    <filter name="inactive" domain="[('active', '=', False)]"/>
+                    <filter string="postcode" name="postcode" context="{'group_by':'postcode', 'residual_visible':True}"/>
+                    <field name="property_type_id"/>
+                    <filter string="available" name="available" domain="['|', ('state', '=', 'new'), ('state', '=', 'received')]"/>
+                </search>
+            </field> 
+        </record>
+
+        <record id="leap_property_kanban_view" model="ir.ui.view">
+            <field name="name">leap.property.kanban.view</field>
+            <field name="model">leap.property</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="property_type_id">
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div>
+                                    <h1><field name="name"/></h1>
+                                </div>
+                                <div>
+                                    <field name="expected_price" string="Expected Price"/>
+                                </div>
+                                <div t-if="record.state.raw_value == 'received'">
+                                    <field name="best_price" string="Best price"/>
+                                </div>
+                                <div t-if="record.state.raw_value == 'accepted'">
+                                    <field name="selling_price" string="Selling Price"/>
+                                </div>
+                                <div>
+                                    <field name="property_tag_ids"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="leap_property_view_action" model="ir.actions.act_window">
+            <field name="name">Leap property</field>
+            <field name="res_model">leap.property</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="context">{'search_default_available': True}</field>
+        </record>
+   </data>
+</odoo>
